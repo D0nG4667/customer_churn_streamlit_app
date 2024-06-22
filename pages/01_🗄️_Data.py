@@ -41,11 +41,7 @@ def save_dataset(df, filepath, csv=True):
         return pd.read_csv(file) if csv else pd.read_excel(file)
 
     def same_dfs(df, df2):
-        try:
-            df.equals(df2)
-            return True
-        except Exception:
-            return False
+        return df.equals(df2)
 
     if not os.path.isfile(filepath):  # Save if file does not exists
         save(df, filepath)
@@ -170,7 +166,7 @@ def main():
     for percentage_completed in range(25):
         time.sleep(0.005)
         progress_bar.progress(75 + percentage_completed + 1)
-    
+
     progress_bar.empty()
     st.toast("Data was loaded successfully!")
 
