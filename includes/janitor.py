@@ -3,14 +3,19 @@ import re
 
 
 class Janitor:
-    def __call__(self, df):
+    def __init__(self):
+        pass
+
+    def clean_dataframe(self, df):
         # Apply all cleaning procedure in sequence
+        df = df.copy()  # First make a copy to preserve integrity of the old df
         df = self.drop_duplicates(df)
         df = self.snake_case_columns(df)
         df = self.fix_none(df)
         df = self.fix_datatypes(df)
         df = self.clean_categoricals(df)
         df = self.dropna_target(df)
+        df = df.reset_index(drop=True) # Fix index
         return df
 
     def drop_duplicates(self, df):
@@ -56,5 +61,6 @@ class Janitor:
             include=['object', 'category']).columns.tolist()
         return self.clean_with_corrections(df, categoricals, corrections)
 
-    def dropna_target(self, df):  # Drop rows with missing values in target column
+    # Drop rows with missing values in target column and reset index
+    def dropna_target(self, df):
         return df.dropna(subset='churn')
