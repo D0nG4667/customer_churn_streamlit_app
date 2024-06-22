@@ -10,6 +10,7 @@ class Janitor:
         df = self.fix_none(df)
         df = self.fix_datatypes(df)
         df = self.clean_categoricals(df)
+        df = self.dropna_target(df)
         return df
 
     def drop_duplicates(self, df):
@@ -56,3 +57,6 @@ class Janitor:
         categoricals = df.select_dtypes(
             include=['object', 'category']).columns.tolist()
         return self.clean_with_corrections(df, categoricals, corrections)
+
+    def dropna_target(self, df):  # Drop rows with missing values in target column
+        return df.dropna(subset='churn')
