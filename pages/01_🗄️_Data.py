@@ -1,6 +1,5 @@
 import os
 import time
-import filecmp
 import urllib
 
 import pandas as pd
@@ -73,12 +72,12 @@ def get_second_data():
     return second_dataset
 
 
-@st.cache_data(show_spinner="Cleaning data...")
+# @st.cache_data(show_spinner="Cleaning data...")
 def get_clean_data(df):
     try:
         janitor = Janitor()
         # Apply all cleaning procedure in sequence
-        df_clean = janitor(df)
+        df_clean = janitor.clean_dataframe(df)
         save_dataset(df_clean, TRAIN_FILE_CLEANED)  # Save offline
     except Exception:
         df_clean = pd.read_csv(TRAIN_FILE_CLEANED)  # Use offline
@@ -116,22 +115,27 @@ def get_all_data(progress_bar):
 
 
 @st.cache_data(show_spinner="Filtering data...")
-def filter_columns_and_markdown(df, category):
+def filter_columns_and_markdown(df, category, view):
+    def filter_markdown(markdown, markdown_cleaned):
+        return markdown_cleaned if view == 'cleaned' else markdown
     if category == "Numerical Columns":
         filtered_df = df.select_dtypes(include="number")
-        filtered_markdown_table = markdown_table_num, markdown_table_num_cleaned
+        filtered_markdown_table = filter_markdown(
+            markdown_table_num, markdown_table_num_cleaned)
     elif category == "Categorical Columns":
         filtered_df = df.select_dtypes(exclude="number")
-        filtered_markdown_table = markdown_table_cat, markdown_table_cat_cleaned
+        filtered_markdown_table = filter_markdown(
+            markdown_table_cat, markdown_table_cat_cleaned)
     else:
         filtered_df = df
-        filtered_markdown_table = markdown_table_all, markdown_table_all_cleaned
+        filtered_markdown_table = filter_markdown(
+            markdown_table_all, markdown_table_all_cleaned)
     return filtered_df, filtered_markdown_table
 
 
 def tab_contents(df, view='raw'):
     filtered_data, filtered_markdown_table = filter_columns_and_markdown(
-        df, st.session_state.category)
+        df, st.session_state.category, view)
     st.dataframe(filtered_data.astype(str))
     filename = f"{st.session_state.category} ({view})"
     extension = ".csv"
@@ -152,8 +156,7 @@ def tab_contents(df, view='raw'):
     with st.expander("Expand to learn about the features", icon="💡"):
         st.subheader("Data dictionary")
         st.write(st.session_state["category"])
-        markdown_table = filtered_markdown_table[1] if view == 'cleaned' else filtered_markdown_table[0]
-        st.markdown(markdown_table)
+        st.markdown(filtered_markdown_table)
 
 
 def main():
