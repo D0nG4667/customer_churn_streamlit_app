@@ -1,3 +1,6 @@
 # Streamlit
-.streamlit/
+.streamlit/secrets.toml
+
+# Cache
+**/__pycache__/
 
