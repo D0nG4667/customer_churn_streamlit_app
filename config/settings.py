@@ -11,6 +11,7 @@ TEST_FILE = os.path.join(DATA, 'raw/Telco-churn-last-2000.xlsx')
 HISTORY = os.path.join(DATA, 'history/')
 MODELS = os.path.join(BASE_DIR, 'models/')
 ENCODER = os.path.join(MODELS, 'enc/')
+ENCODER_FILE = os.path.join(ENCODER, 'encoder.joblib')
 
 # Urls
 SECOND_FILE_URL = "https://raw.githubusercontent.com/Azubi-Africa/Career_Accelerator_LP2-Classifcation/main/LP2_Telco-churn-second-2000.csv"
