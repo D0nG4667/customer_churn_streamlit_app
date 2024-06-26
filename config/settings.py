@@ -15,4 +15,5 @@ ENCODER = os.path.join(MODELS, 'enc/')
 # Urls
 SECOND_FILE_URL = "https://raw.githubusercontent.com/Azubi-Africa/Career_Accelerator_LP2-Classifcation/main/LP2_Telco-churn-second-2000.csv"
 TEST_FILE_URL = "https://github.com/D0nG4667/telco_customer_churn_prediction/raw/main/data/untouched/Telco-churn-last-2000.xlsx"
+TRAIN_FILE_URL = "https://raw.githubusercontent.com/D0nG4667/customer_churn_streamlit_app/data/data/raw/df_train.csv"
 TRAIN_FILE_CLEANED_URL = "https://raw.githubusercontent.com/D0nG4667/customer_churn_streamlit_app/data/data/cleaned/df_train.csv"
