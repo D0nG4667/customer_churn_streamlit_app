@@ -3,6 +3,11 @@ import pandas as pd
 
 target = 'churn'
 
+numerical_features = ['tenure', 'monthly_charges', 'total_charges']
+
+categorical_features_new = ['gender', 'senior_citizen', 'partner', 'dependents', 'internet_service',
+                            'contract', 'paperless_billing', 'payment_method', 'call_service', 'security_service', 'streaming_service']
+
 # Get the categoricals
 categoricals = ['gender', 'senior_citizen', 'partner', 'dependents', 'phone_service', 'multiple_lines', 'internet_service', 'online_security',
                 'online_backup', 'device_protection', 'tech_support', 'streaming_tv', 'streaming_movies', 'contract', 'paperless_billing', 'payment_method', 'churn']
