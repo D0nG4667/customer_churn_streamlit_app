@@ -240,7 +240,7 @@ def model_explainer(df):
             "Select a model",
             options=model_names,
             index=5,
-            placeholder="Search a customer...",
+            placeholder="Choose a model...",
             key='selected_pipeline'
         )
         selected_pipeline = all_pipelines.get(selected_pipeline_name)
