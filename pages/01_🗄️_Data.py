@@ -4,6 +4,7 @@ import urllib
 
 import pandas as pd
 import streamlit as st
+import extra_streamlit_components as stx
 from sqlalchemy import create_engine
 
 from config.settings import DATA, FIRST_FILE, SECOND_FILE, SECOND_FILE_URL, TRAIN_FILE, TRAIN_FILE_CLEANED, TEST_FILE, TEST_FILE_URL
@@ -181,23 +182,30 @@ def main():
     if "category" not in st.session_state:
         st.session_state["category"] = "All Columns"
 
+    # Create the tabs
+    # tab1, tab2, tab3 = st.tabs(["📄 Raw", "✨ Cleaned", "📜 Test"]) # No session state with st inbuilt tabs
+    chosen_id = stx.tab_bar(data=[
+        stx.TabBarItemData(id=1, title='📄 Raw', description=''),
+        stx.TabBarItemData(id=2, title='✨ Cleaned', description=''),
+        stx.TabBarItemData(id=3, title='📜 Test', description=''),
+    ], default=1)
+
     _, col2 = st.columns(2)
     with col2:
         st.selectbox("Select Specific Features", options=[
                      "All Columns", "Numerical Columns", "Categorical Columns"], key="category")
 
-    # Create the tabs
-    tab1, tab2, tab3 = st.tabs(["📄 Raw", "✨ Cleaned", "📜 Test"])
-
     # Show the tabs
-    with tab1:
+    if chosen_id == '1':
         st.subheader("Data view of the raw dataset")
         tab_contents(df_train, view='raw')
-    with tab2:
+    elif chosen_id == '2':
         st.subheader("Data view of the cleaned dataset")
-        st.snow()
+        if not st.session_state.get('snow', False):
+            st.snow()
+            st.session_state['snow'] = True
         tab_contents(df_train_clean, view='cleaned')
-    with tab3:
+    else:
         st.subheader("Data view of the test dataset")
         tab_contents(df_test, view='test')
 
