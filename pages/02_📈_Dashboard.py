@@ -8,6 +8,7 @@ from includes.kpi import kpi
 from includes.func_in_pipeline import *
 from includes.model_explainer import model_explainer
 from includes.logo import logo
+from includes.footer import footer
 
 
 st.set_page_config(
@@ -57,6 +58,9 @@ def main():
         kpi(df_clean, target)
     else:
         model_explainer(df_clean)
+
+    # Add footer
+    footer()
 
 
 if __name__ == "__main__":
