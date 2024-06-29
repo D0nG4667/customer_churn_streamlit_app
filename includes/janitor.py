@@ -65,4 +65,4 @@ class Janitor:
 
     # Drop rows with missing values in target column and reset index
     def dropna_target(self, df):
-        return df.dropna(subset='churn')
+        return df.dropna(subset='churn') if 'churn' in df.columns else df
