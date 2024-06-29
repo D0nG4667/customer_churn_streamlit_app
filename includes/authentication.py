@@ -44,6 +44,9 @@ def default_credentials(error=False):
 
 
 def logout_button(authenticator):
+    st.sidebar.success(f"Howdy, {st.session_state.get('name')}\n" +
+                       f"\nEmail: {st.session_state.get('name')}@unicorn.io\n" +
+                       f"\nSubscription: **Unlimited**")
     return authenticator.logout(location='sidebar') if st.session_state['authentication_status'] else default_credentials()
 
 
