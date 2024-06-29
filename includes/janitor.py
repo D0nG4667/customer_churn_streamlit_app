@@ -37,9 +37,11 @@ class Janitor:
         return df.map(replace_none)
 
     def fix_datatypes(self, df):
-        df['total_charges'] = pd.to_numeric(
-            df['total_charges'], errors='coerce')
-        df['senior_citizen'] = df.senior_citizen.astype(str)
+        col_to_fix = {'total_charges', 'senior_citizen'}
+        if col_to_fix.issubset(df.columns):
+            df['total_charges'] = pd.to_numeric(
+                df['total_charges'], errors='coerce')
+            df['senior_citizen'] = df.senior_citizen.astype(str)
         return df
 
     def clean_with_corrections(self, df: pd.DataFrame, column_names: list, corrections: dict) -> pd.DataFrame:
@@ -63,4 +65,4 @@ class Janitor:
 
     # Drop rows with missing values in target column and reset index
     def dropna_target(self, df):
-        return df.dropna(subset='churn')
+        return df.dropna(subset='churn') if 'churn' in df.columns else df
