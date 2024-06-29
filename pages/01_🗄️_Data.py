@@ -12,6 +12,7 @@ from includes.logo import logo
 from includes.markdown import *
 from includes.janitor import Janitor
 from includes.footer import footer
+from includes.authentication import add_authentication
 
 
 st.set_page_config(
@@ -105,16 +106,29 @@ def get_train_data(first_dataset, second_dataset):
     return df_train
 
 
-def get_all_data(progress_bar):
+def get_all_data(show_progress='False'):
+    # Create a progress bar to let user know data is loading
+    progress_bar = st.progress(10) if show_progress else None
     first_dataset = get_first_data()
-    progress_bar.progress(40)
+    if show_progress:
+        progress_bar.progress(40)
     second_dataset = get_second_data()
-    progress_bar.progress(55)
+    if show_progress:
+        progress_bar.progress(55)
     df_test = get_test_data()
-    progress_bar.progress(65)
+    if show_progress:
+        progress_bar.progress(65)
     df_train = get_train_data(first_dataset, second_dataset)
     df_train_clean = get_clean_data(df_train)
-    progress_bar.progress(75)
+    if show_progress:
+        progress_bar.progress(75)
+        for percentage_completed in range(25):
+            time.sleep(0.005)
+            progress_bar.progress(75 + percentage_completed + 1)
+
+        progress_bar.empty()
+        st.toast("Data was loaded successfully!", icon='✔️')
+        st.session_state['progress_bar'] = False
     return df_test, df_train, df_train_clean
 
 
@@ -166,36 +180,29 @@ def tab_contents(df, view='raw'):
 def main():
     st.title("Proprietory Data from Vodafone 🗄️")
 
-    # Create a progress bar to let user know data is loading
-    progress_bar = st.progress(10)
-
     # Get data for viewing
-    df_test, df_train, df_train_clean = get_all_data(progress_bar)
-
-    for percentage_completed in range(25):
-        time.sleep(0.005)
-        progress_bar.progress(75 + percentage_completed + 1)
-
-    progress_bar.empty()
-    st.toast("Data was loaded successfully!", icon='✔️')
+    df_test, df_train, df_train_clean = get_all_data(
+        show_progress=st.session_state.get('progress_bar', True))
 
     # Initialize the session state for categories
     if "category" not in st.session_state:
         st.session_state["category"] = "All Columns"
 
-    # Create the tabs
-    # tab1, tab2, tab3 = st.tabs(["📄 Raw", "✨ Cleaned", "📜 Test"]) # No session state with st inbuilt tabs
-    chosen_id = stx.tab_bar(data=[
-        stx.TabBarItemData(id=1, title='📄 Raw', description=''),
-        stx.TabBarItemData(id=2, title='✨ Cleaned', description=''),
-        stx.TabBarItemData(id=3, title='📜 Test', description=''),
-    ], default=1)
-
+    # st.write(st.session_state)
     _, col2 = st.columns(2)
     with col2:
         st.selectbox("Select Specific Features", options=[
                      "All Columns", "Numerical Columns", "Categorical Columns"], key="category")
 
+    # Create the tabs
+    # tab1, tab2, tab3 = st.tabs(["📄 Raw", "✨ Cleaned", "📜 Test"]) # No session state with st inbuilt tabs
+    selected_tab = st.session_state.get('selected_tab')
+    default = 1 if selected_tab is None else selected_tab
+    chosen_id = stx.tab_bar(data=[
+        stx.TabBarItemData(id=1, title='📄 Raw', description=''),
+        stx.TabBarItemData(id=2, title='✨ Cleaned', description=''),
+        stx.TabBarItemData(id=3, title='📜 Test', description=''),
+    ], default=default, key='selected_tab')
     # Show the tabs
     if chosen_id == '1':
         st.subheader("Data view of the raw dataset")
@@ -215,4 +222,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    with st.sidebar:
+        name, authentication_status, username, authenticator = add_authentication()
+
+    if st.session_state.get('username') and st.session_state.get('name') and st.session_state.get('authentication_status'):
+        main()
+    else:
+        st.info('### 🔓 Login to access this data app')
+        footer()
