@@ -4,6 +4,7 @@ import pandas as pd
 
 from config.settings import HISTORY_FILE, HISTORY_FILE_URL
 from includes.logo import logo
+from includes.footer import footer
 
 
 # Set page configuration
@@ -44,6 +45,9 @@ def main():
     df_history_explorer = dataframe_explorer(df_history, case=False)
 
     st.dataframe(df_history_explorer)
+
+    # Add footer
+    footer()
 
 
 if __name__ == '__main__':
