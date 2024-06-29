@@ -14,6 +14,7 @@ MODELS = os.path.join(BASE_DIR, 'models/')
 ENCODER = os.path.join(MODELS, 'enc/')
 ENCODER_FILE = os.path.join(ENCODER, 'encoder.joblib')
 LOGO = os.path.join(BASE_DIR, 'assets/vodafone_logo.png')
+CONFIG_YAML = os.path.join(BASE_DIR, 'config/config.yaml')
 
 # Urls
 SECOND_FILE_URL = "https://raw.githubusercontent.com/Azubi-Africa/Career_Accelerator_LP2-Classifcation/main/LP2_Telco-churn-second-2000.csv"
