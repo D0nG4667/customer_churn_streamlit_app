@@ -125,7 +125,7 @@ def model_explainer(df):
         _, X_eval, _, _, y_eval_encoded = train_test_split_encode(df)
         y_score = _pipeline.predict_proba(X_eval)[:, 1]
         # Compute ROC curve
-        fpr, tpr, thresholds = roc_curve(
+        fpr, tpr, _ = roc_curve(
             y_eval_encoded, y_score)
         roc_auc = auc(fpr, tpr)
         fig = px.area(
@@ -226,7 +226,6 @@ def model_explainer(df):
             st.session_state['toggles'] = toggles
             return toggles
 
-
         all_cf_toggle = st.sidebar.toggle(
             "All confusion matrix", toggles[0], on_change=handle_toggle, args=[0], key='all_cf_toggle')
         all_roc_toggle = st.sidebar.toggle(
@@ -252,9 +251,6 @@ def model_explainer(df):
 
         if selected_pipeline_name == "LogisticRegression":
             st.toast(f"{selected_pipeline_name} is the best model", icon="🎊")
-            if "balloons" not in st.session_state:
-                st.balloons()
-                st.session_state["balloons"] = True
 
             st.sidebar.toggle(
                 "Feature importances", toggles[2], on_change=handle_toggle, args=[2], key='feat_imp_toggle')
