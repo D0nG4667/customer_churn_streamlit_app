@@ -11,6 +11,7 @@ from config.settings import DATA, FIRST_FILE, SECOND_FILE, SECOND_FILE_URL, TRAI
 from includes.logo import logo
 from includes.markdown import *
 from includes.janitor import Janitor
+from includes.footer import footer
 
 
 st.set_page_config(
@@ -176,7 +177,7 @@ def main():
         progress_bar.progress(75 + percentage_completed + 1)
 
     progress_bar.empty()
-    st.toast("Data was loaded successfully!")
+    st.toast("Data was loaded successfully!", icon='✔️')
 
     # Initialize the session state for categories
     if "category" not in st.session_state:
@@ -208,6 +209,9 @@ def main():
     else:
         st.subheader("Data view of the test dataset")
         tab_contents(df_test, view='test')
+
+    # Add footer
+    footer()
 
 
 if __name__ == "__main__":
