@@ -16,6 +16,7 @@ from includes.func_in_pipeline import *
 from includes.logo import logo
 from includes.janitor import Janitor
 from includes.markdown import markdown_table_all
+from includes.footer import footer
 
 
 # Set page configuration
@@ -504,6 +505,9 @@ def main():
             df_with_predictions = st.session_state.get(
                 'bulk_prediction_df', None)
         show_bulk_predictions(df_with_predictions)
+
+    # Add footer
+    footer()
 
 
 if __name__ == '__main__':
