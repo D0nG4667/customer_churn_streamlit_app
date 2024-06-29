@@ -1,0 +1,19 @@
+credentials:
+  usernames:
+    stakeholder:
+      email: stakeholder@unicorn.io
+      name: stakeholder
+      password: 'elonmusk'
+    stakeholder@unicorn.io:
+      email: stakeholder@unicorn.io
+      name: stakeholder
+      password: 'elonmusk' 
+cookie:
+  expiry_days: 1
+  key: vodafone_key
+  name: vodaphone
+preauthorized:
+  usernames:
+  - stakeholder
+  - stakeholder@unicorn.io
+
