@@ -7,6 +7,7 @@ import streamlit as st
 from sqlalchemy import create_engine
 
 from config.settings import DATA, FIRST_FILE, SECOND_FILE, SECOND_FILE_URL, TRAIN_FILE, TRAIN_FILE_CLEANED, TEST_FILE, TEST_FILE_URL
+from includes.logo import logo
 from includes.markdown import *
 from includes.janitor import Janitor
 
@@ -17,7 +18,8 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("Proprietory Data from Vodafone 🗄️")
+# Use app logo
+logo()
 
 
 @st.cache_resource(show_spinner="Connecting to database...")
@@ -160,6 +162,8 @@ def tab_contents(df, view='raw'):
 
 
 def main():
+    st.title("Proprietory Data from Vodafone 🗄️")
+
     # Create a progress bar to let user know data is loading
     progress_bar = st.progress(10)
 
