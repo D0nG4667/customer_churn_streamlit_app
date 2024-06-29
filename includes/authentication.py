@@ -44,6 +44,9 @@ def default_credentials(error=False):
 
 
 def logout_button(authenticator):
+    st.sidebar.success(f"Howdy, {st.session_state.get('name')}\n" +
+                       f"\nEmail: {st.session_state.get('name')}@unicorn.io\n" +
+                       f"\nSubscription: **Unlimited**")
     return authenticator.logout(location='sidebar') if st.session_state['authentication_status'] else default_credentials()
 
 
@@ -65,9 +68,16 @@ def add_authentication():
 
 """
     Usage:
-    if username and name and authentication_status:
-        st.switch_page
-        st.write(username)
-        Do something
+    from includes.footer import footer
+    from includes.authentication import add_authentication
+    if __name__ == "__main__":
+        with st.sidebar:
+            name, authentication_status, username, authenticator = add_authentication()
+
+        if st.session_state.get('username') and st.session_state.get('name') and st.session_state.get('authentication_status'):
+            main()
+        else:
+            st.info('### 🔓 Login to access this data app')
+            footer()
     
 """
