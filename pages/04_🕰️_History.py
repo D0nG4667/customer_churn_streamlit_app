@@ -4,6 +4,7 @@ import pandas as pd
 
 from config.settings import HISTORY_FILE, HISTORY_FILE_URL
 from includes.logo import logo
+from includes.authentication import add_authentication
 from includes.footer import footer
 
 
@@ -51,4 +52,11 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    with st.sidebar:
+        name, authentication_status, username, authenticator = add_authentication()
+
+    if st.session_state.get('username') and st.session_state.get('email') and st.session_state.get('authentication_status'):
+        main()
+    else:
+        st.info('### 🔓 Login to access this data app')
+        footer()
