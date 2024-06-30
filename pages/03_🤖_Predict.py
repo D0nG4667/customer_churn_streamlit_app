@@ -515,9 +515,6 @@ def main():
                 'bulk_prediction_df', None)
         show_bulk_predictions(df_with_predictions)
 
-    # Add footer
-    footer()
-
 
 if __name__ == '__main__':
     with st.sidebar:
