@@ -66,18 +66,18 @@ def add_authentication():
     return name, authentication_status, username, authenticator
 
 
-"""
-    Usage:
-    from includes.footer import footer
-    from includes.authentication import add_authentication
-    if __name__ == "__main__":
-        with st.sidebar:
-            name, authentication_status, username, authenticator = add_authentication()
+# """
+#     Usage:
+#     from includes.footer import footer
+#     from includes.authentication import add_authentication
+#     if __name__ == "__main__":
+#         with st.sidebar:
+#             name, authentication_status, username, authenticator = add_authentication()
 
-        if st.session_state.get('username') and st.session_state.get('name') and st.session_state.get('authentication_status'):
-            main()
-        else:
-            st.info('### 🔓 Login to access this data app')
-            footer()
-    
-"""
+#         if st.session_state.get('username') and st.session_state.get('name') and st.session_state.get('authentication_status'):
+#             main()
+#         else:
+#             st.info('### 🔓 Login to access this data app')
+#             footer()
+
+# """
