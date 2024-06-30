@@ -118,9 +118,6 @@ def main():
         """)
 
 
-# Add footer
-footer()
-
 if __name__ == "__main__":
     with st.sidebar:
         name, authentication_status, username, authenticator = add_authentication()
