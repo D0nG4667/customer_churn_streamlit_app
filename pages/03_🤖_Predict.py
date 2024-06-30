@@ -16,6 +16,7 @@ from includes.func_in_pipeline import *
 from includes.logo import logo
 from includes.janitor import Janitor
 from includes.markdown import markdown_table_all
+from includes.authentication import add_authentication
 from includes.footer import footer
 
 
@@ -110,13 +111,11 @@ def select_model():
     pipeline_names = get_pipeline_names(model_paths)
     best_model_index = pipeline_names.index(best_model_name)
 
-    col1, col2 = st.columns(2)
+    col1, _ = st.columns(2)
 
     with col1:
         selected_pipeline_name = st.selectbox('Select a model', options=pipeline_names,
                                               index=best_model_index, key=s_p_key)
-    with col2:
-        pass
 
     pipeline = load_selected_pipeline(
         selected_pipeline_name, pipeline_names, model_paths)
@@ -485,20 +484,30 @@ def main():
     st.sidebar.toggle("Looking for a customer?", value=st.session_state.get(
         'search_customer', False), key='search_customer')
 
-    # tab1, tab2 = st.tabs(['🧠 Predict', '🔮 Bulk predict'])
-    chosen_id = stx.tab_bar(data=[
-        stx.TabBarItemData(id=1, title='🧠 Predict', description=''),
-        stx.TabBarItemData(id=2, title='🔮 Bulk predict', description=''),
-    ], default=1)
-
     pipeline, encoder = select_model()
+
+    # tab1, tab2 = st.tabs(['🧠 Predict', '🔮 Bulk predict'])
+    selected_predict_tab = st.session_state.get('selected_predict_tab')
+    default = 1 if selected_predict_tab is None else selected_predict_tab
+
+    # """
+    # This hack solves the invisibility of stx.tab_bar on first load
+    # """
+    with st.spinner('A little house keeping...'):
+        time.sleep(st.session_state.get('sleep', 1.5))
+        chosen_id = stx.tab_bar(data=[
+            stx.TabBarItemData(id=1, title='🧠 Predict', description=''),
+            stx.TabBarItemData(id=2, title='🔮 Bulk predict',
+                               description=''),
+        ], default=default)
+        st.session_state['sleep'] = 0
 
     if chosen_id == '1':
         sidebar('single_prediction')
         do_single_prediction(pipeline, encoder)
         show_prediction()
 
-    else:
+    elif chosen_id == '2':
         sidebar('bulk_prediction')
         df_with_predictions = do_bulk_prediction(pipeline, encoder)
         if df_with_predictions is None:
@@ -511,4 +520,15 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    with st.sidebar:
+        name, authentication_status, username, authenticator = add_authentication()
+
+    if st.session_state.get('username') and st.session_state.get('name') and st.session_state.get('authentication_status'):
+        main()
+    else:
+        # Hack for invisibility bug of stx.tab_bar on first load
+        if 'sleep' in st.session_state:
+            del st.session_state['sleep']
+
+        st.info('### 🔓 Login to access this data app')
+        footer()
