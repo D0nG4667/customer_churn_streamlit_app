@@ -60,9 +60,6 @@ def main():
     else:
         model_explainer(df_clean)
 
-    # Add footer
-    footer()
-
 
 if __name__ == "__main__":
     with st.sidebar:
