@@ -47,9 +47,6 @@ def main():
 
     st.dataframe(df_history_explorer)
 
-    # Add footer
-    footer()
-
 
 if __name__ == '__main__':
     with st.sidebar:
