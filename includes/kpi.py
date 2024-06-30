@@ -132,7 +132,7 @@ def kpi(df, target):
                       value=tenure, delta=delta_6 if check_delta else None)
             st.session_state['delta_6'] = tenure
 
-        style_metric_cards()
+        style_metric_cards(background_color='transparent') # Fix for visibility for both white and dark themes
 
     def show_kpi_plots(df_filtered, target):
         def show_fig(fig):
