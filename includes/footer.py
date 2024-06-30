@@ -9,11 +9,12 @@ def footer():
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #f8f9fa;
+            background-color: transparent;
             color: #333;
             text-align: center;
             padding: 10px;
             box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+            z-index: 100; /* Prevent overlaying of page content on footer */
         }
         </style>
         <div class="footer">
