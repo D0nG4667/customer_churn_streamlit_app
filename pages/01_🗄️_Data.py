@@ -217,9 +217,6 @@ def main():
         st.subheader("Data view of the test dataset")
         tab_contents(df_test, view='test')
 
-    # Add footer
-    footer()
-
 
 if __name__ == "__main__":
     with st.sidebar:
