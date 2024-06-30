@@ -33,3 +33,5 @@ streamlit-vertical-slider==2.5.5
 toml==0.10.2
 urllib3==2.1.0
 xgboost==2.0.3
+openpyxl==3.0.10
+setuptools==68.2.2
