@@ -16,9 +16,12 @@ The CRoss Industry Standard Process for Data Mining (CRISP-DM).
 
 - [Customer Churn Prediction Data App](https://vodafone.gabcares.xyz/)
 
-### Demo
+### Demo video
 
-![Demo video](/assets/customer_churn_prediction_demo.mp4)
+<video width="600" controls>
+  <source src="assets/customer_churn_prediction_demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Technologies Used
 
