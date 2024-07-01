@@ -14,14 +14,11 @@ The CRoss Industry Standard Process for Data Mining (CRISP-DM).
 
 ### Streamlit app
 
-- [Customer Churn Prediction Data App](https://vodafone.gabcares.xyz/)
+[Customer Churn Prediction Data App](https://vodafone.gabcares.xyz/)
 
-### Demo video
+### Demo
 
-<video width="600" controls>
-  <source src="assets/customer_churn_prediction_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[Demo video](/assets/customer_churn_prediction_demo.mp4)
 
 ## Technologies Used
 
@@ -63,9 +60,10 @@ conda env create -f streamlit_environment.yml
 Use this command to run this data app:
 
 ```sh
-    streamlit run 🏠_Home.py
+streamlit run 🏠_Home.py
 
 ```
+
 
 ## Contributions
 
