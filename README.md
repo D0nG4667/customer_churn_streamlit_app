@@ -18,7 +18,7 @@ The CRoss Industry Standard Process for Data Mining (CRISP-DM).
 
 ### Demo video
 
-<iframe width="560" height="315" src="https://github.com/D0nG4667/customer_churn_streamlit_app/blob/setup/assets/customer_churn_prediction_demo.mp4" frameborder="0" allowfullscreen></iframe>
+https://github.com/D0nG4667/customer_churn_streamlit_app/assets/17394908/b15d8b8b-2514-4ea9-a7d1-865f40f8f6dd
 
 
 ## Technologies Used
