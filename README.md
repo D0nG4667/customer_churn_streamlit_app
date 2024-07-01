@@ -55,6 +55,15 @@ The CRoss Industry Standard Process for Data Mining (CRISP-DM).
 conda env create -f streamlit_environment.yml
 ```
 
+### Usage
+
+Use this command to run this data app:
+
+```sh
+    streamlit run 🏠_Home.py
+
+```
+
 ## Contributions
 
 ### How to Contribute
