@@ -119,11 +119,4 @@ def main():
 
 
 if __name__ == "__main__":
-    with st.sidebar:
-        name, authentication_status, username, authenticator = add_authentication()
-
-    if st.session_state.get('username') and st.session_state.get('name') and st.session_state.get('authentication_status'):
-        main()
-    else:
-        st.info('### 🔓 Login to access this data app')
-        footer()
+    add_authentication(main, footer)
