@@ -516,16 +516,5 @@ def main():
         show_bulk_predictions(df_with_predictions)
 
 
-if __name__ == '__main__':
-    with st.sidebar:
-        name, authentication_status, username, authenticator = add_authentication()
-
-    if st.session_state.get('username') and st.session_state.get('name') and st.session_state.get('authentication_status'):
-        main()
-    else:
-        # Hack for invisibility bug of stx.tab_bar on first load
-        if 'sleep' in st.session_state:
-            del st.session_state['sleep']
-
-        st.info('### 🔓 Login to access this data app')
-        footer()
+if __name__ == "__main__":
+    add_authentication(main, footer)
