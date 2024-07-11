@@ -84,11 +84,9 @@ def add_authentication(main: Callable = None, footer: Callable = None, location:
         authenticator = get_authenticator(config)
         st.session_state['authenticator'] = authenticator
 
-    st.write(st.session_state)
-
     if st.session_state.get('authentication_status') and isinstance(main, Callable):
         do_logout(authenticator, location)
-        main([1])
+        main()
     elif not st.session_state.get('authentication_status') and isinstance(footer, Callable):
         try:
             do_login(authenticator, location)
@@ -96,7 +94,7 @@ def add_authentication(main: Callable = None, footer: Callable = None, location:
             st.error(e)
 
         st.info('### 🔓 Login to access this data app')
-        footer([1])
+        footer()
 
     return authenticator
 
