@@ -39,7 +39,7 @@ def show_login_error(authentication_status: Union[bool, None]) -> None:
 def show_default_credentials(location) -> None:
     placeholder = st.container() if location == 'main' else st.sidebar
 
-    placeholder.info('Login to get use this data app', icon='🔓')
+    placeholder.info('Login to use this data app', icon='🔓')
 
     placeholder.markdown(f"""
         **Test Account**
@@ -79,7 +79,6 @@ def add_authentication(main: Callable = None, footer: Callable = None, location:
 
     # Use only one Authencticate instance per session state
     if not isinstance(authenticator, Authenticate):
-        st.write('no authenticator')
         config = get_config_yaml()
         authenticator = get_authenticator(config)
         st.session_state['authenticator'] = authenticator
@@ -93,7 +92,10 @@ def add_authentication(main: Callable = None, footer: Callable = None, location:
         except LoginError as e:
             st.error(e)
 
-        st.info('### 🔓 Login to access this data app')
+        # Main page body
+        show_default_credentials(location='main')
+
+        # Show footer
         footer()
 
     return authenticator
