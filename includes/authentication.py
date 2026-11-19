@@ -36,21 +36,29 @@ def show_login_error(authentication_status: Union[bool, None]) -> None:
         st.error('You may have entered wrong credentials', icon='🚨')
 
 
-def show_default_credentials(location) -> None:
+def show_default_credentials(location: str) -> None:
+    """Display login prompt and optional test credentials from Streamlit secrets."""
     placeholder = st.container() if location == 'main' else st.sidebar
 
     placeholder.info('Login to use this data app', icon='🔓')
 
-    placeholder.markdown(f"""
+    try:
+        auth_secrets = st.secrets["local"]["authenticator"]
+        user = auth_secrets["USER"]
+        password = auth_secrets["PASS"]
+    except (KeyError, AttributeError, FileNotFoundError):
+        return
+
+    placeholder.markdown("""
         **Test Account**
 
         Username:
     """)
-    placeholder.code(st.secrets.local.authenticator.USER)
-    placeholder.markdown(f"""
+    placeholder.code(user)
+    placeholder.markdown("""
         Password:
     """)
-    placeholder.code(st.secrets.local.authenticator.PASS)
+    placeholder.code(password)
 
 
 def do_logout(authenticator: Authenticate, location: str):
